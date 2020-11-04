@@ -27,10 +27,10 @@ public class Main implements Runnable, ActionListener{
   String randWord = words[randIndex];
   
   //amount of tries the user gets
-  final int MAX_TRIES = 7;
+  final int MAX_TRIES = 0;
   //store the word in array to see users progress 
   char[] letter = randWord.toCharArray();
-  int tries;
+  int tries = 7;
   //create an array that stores the letters that were typed in
   char[] enteredLetters = new char[randWord.length()];
   
@@ -63,8 +63,8 @@ public class Main implements Runnable, ActionListener{
     triesLabel = new JLabel("Tries Left:");
     //set the location and size of the labels
     guessLabel.setBounds(50,50,100,20);
-    wordLabel.setBounds(150,100,100,20);
-    triesLabel.setBounds(50,150,100,20);
+    wordLabel.setBounds(150,100,400,20);
+    triesLabel.setBounds(50,150,400,20);
     triesRemainingLabel.setBounds(125,150,100,20);
 
     //add labels to main panel 
@@ -114,10 +114,15 @@ public class Main implements Runnable, ActionListener{
           //convert char array into String
           String letter = String.valueOf(enteredLetters);
           wordLabel.setText("" + letter);
-        }
-      }
-    }
-      
+        } 
+        
+      } 
+      //convert char array into String
+      String letters = String.valueOf(enteredLetters);
+       if (letters.equals(randWord)){
+        wordLabel.setText("You Win! The word was: " + randWord);
+       }
+    } 
    }
     
       
