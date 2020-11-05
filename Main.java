@@ -15,24 +15,28 @@ public class Main implements Runnable, ActionListener{
   JTextField letterInput;
 
   JButton submitButton;
+  JButton restartButton;
 
   Font biggerText;
 
   //create an array for the words in the game
   String[] words = {"hello" , "zebra" , "cut" , "computer"};
   //random word generator
-  final Random RANDOM = new Random();
+  final 
+  
   //create random word
   int randIndex = RANDOM.nextInt(4);
   String randWord = words[randIndex];
   
-  //amount of tries the user gets
-  final int MAX_TRIES = 0;
+ 
   //store the word in array to see users progress 
   char[] letter = randWord.toCharArray();
   int tries = 7;
   //create an array that stores the letters that were typed in
   char[] enteredLetters = new char[randWord.length()];
+  //create a variable that will change everytime a letter is not guessed
+  boolean correct = true;
+  
   
 
 
@@ -78,14 +82,18 @@ public class Main implements Runnable, ActionListener{
     letterInput.setBounds(150,50,100,20);
     //add text field to the main panel
     mainPanel.add(letterInput);
-    //initialize the submit button
+    //initialize the buttons
     submitButton = new JButton("Submit");
-    //set location and size of the button
+    restartButton = new JButton("Restart");
+    //set location and size of the buttons
     submitButton.setBounds(270,50,100,20);
-    //add action listener to the button
+    restartButton.setBounds(400,50,100,20);
+    //add action listener to the buttons
     submitButton.addActionListener(this);
-    //add button to main panel
+    restartButton.addActionListener(this);
+    //add buttons to main panel
     mainPanel.add(submitButton);
+    mainPanel.add(restartButton);
     //add main panel to frame
     frame.add(mainPanel);
     for(int i = 0; i < randWord.length(); i++){
@@ -107,23 +115,45 @@ public class Main implements Runnable, ActionListener{
       String firstText = letterInput.getText();
       //check if letter is in the word
       char letterGuess = firstText.charAt(0);
-      
+      correct = false;
       for(int i = 0; i < randWord.length(); i++){
         if(letter[i] == letterGuess){
           enteredLetters[i] = letterGuess; 
+          correct = true;
           //convert char array into String
           String letter = String.valueOf(enteredLetters);
           wordLabel.setText("" + letter);
-        } 
-        
-      } 
+          
+        }
+      }
+
       //convert char array into String
       String letters = String.valueOf(enteredLetters);
        if (letters.equals(randWord)){
         wordLabel.setText("You Win! The word was: " + randWord);
        }
-    } 
-   }
+      if(correct == true){
+        triesRemainingLabel.setText("" + tries);
+      }
+      if(correct != true){
+        tries--;
+        triesRemainingLabel.setText("" + tries);
+      }
+      if(tries == 0){
+        wordLabel.setText("You Lose! To try again press Restart");
+      }
+    }
+    if(command.equals("Restart")){
+      
+      //reset everything to default
+      letterInput.setText("");
+      wordLabel.setText("");
+      triesRemainingLabel.setText("");
+    }
+}
+    
+
+   
     
       
      
