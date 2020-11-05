@@ -67,9 +67,9 @@ public class Main implements Runnable, ActionListener{
     triesLabel = new JLabel("Tries Left:");
     //set the location and size of the labels
     guessLabel.setBounds(200,150,100,20);
-    wordLabel.setBounds(250,180,400,20);
+    wordLabel.setBounds(300,180,400,20);
     triesLabel.setBounds(200,220,400,20);
-    triesRemainingLabel.setBounds(300,220,100,20);
+    triesRemainingLabel.setBounds(280,220,100,20);
 
     //add labels to main panel 
     mainPanel.add(guessLabel);
