@@ -22,7 +22,7 @@ public class Main implements Runnable, ActionListener{
   //create an array for the words in the game
   String[] words = {"hello" , "zebra" , "cut" , "computer"};
   //random word generator
-  final 
+  final Random RANDOM = new Random();
   
   //create random word
   int randIndex = RANDOM.nextInt(4);
@@ -66,10 +66,10 @@ public class Main implements Runnable, ActionListener{
     triesRemainingLabel = new JLabel();
     triesLabel = new JLabel("Tries Left:");
     //set the location and size of the labels
-    guessLabel.setBounds(50,50,100,20);
-    wordLabel.setBounds(150,100,400,20);
-    triesLabel.setBounds(50,150,400,20);
-    triesRemainingLabel.setBounds(125,150,100,20);
+    guessLabel.setBounds(200,150,100,20);
+    wordLabel.setBounds(250,180,400,20);
+    triesLabel.setBounds(200,220,400,20);
+    triesRemainingLabel.setBounds(300,220,100,20);
 
     //add labels to main panel 
     mainPanel.add(guessLabel);
@@ -79,15 +79,15 @@ public class Main implements Runnable, ActionListener{
     //initialize the text text field
     letterInput = new JTextField();
     //set location and size of text field
-    letterInput.setBounds(150,50,100,20);
+    letterInput.setBounds(300,150,100,20);
     //add text field to the main panel
     mainPanel.add(letterInput);
     //initialize the buttons
     submitButton = new JButton("Submit");
     restartButton = new JButton("Restart");
     //set location and size of the buttons
-    submitButton.setBounds(270,50,100,20);
-    restartButton.setBounds(400,50,100,20);
+    submitButton.setBounds(420,150,100,20);
+    restartButton.setBounds(550,150,100,20);
     //add action listener to the buttons
     submitButton.addActionListener(this);
     restartButton.addActionListener(this);
@@ -97,7 +97,7 @@ public class Main implements Runnable, ActionListener{
     //add main panel to frame
     frame.add(mainPanel);
     for(int i = 0; i < randWord.length(); i++){
-      enteredLetters[i] = '_';
+     enteredLetters[i] = '_';
     //make font bigger
     biggerText = new Font("arial" , Font.PLAIN, 19);
     wordLabel.setFont(biggerText);
@@ -106,11 +106,12 @@ public class Main implements Runnable, ActionListener{
 
   }
 
-   // method called when a button is pressed
-   public void actionPerformed(ActionEvent e){
+    // method called when a button is pressed
+    public void actionPerformed(ActionEvent e){
     // get the command from the action
     String command = e.getActionCommand();
     if(command.equals("Submit")){
+      
       //get text from input box
       String firstText = letterInput.getText();
       //check if letter is in the word
@@ -129,28 +130,49 @@ public class Main implements Runnable, ActionListener{
 
       //convert char array into String
       String letters = String.valueOf(enteredLetters);
-       if (letters.equals(randWord)){
+       if(letters.equals(randWord)){
         wordLabel.setText("You Win! The word was: " + randWord);
        }
-      if(correct == true){
+       //if user guesses a letter
+       if(correct == true){
         triesRemainingLabel.setText("" + tries);
       }
-      if(correct != true){
+       //if user does not guess a letter in the word 
+       if(correct != true){
         tries--;
         triesRemainingLabel.setText("" + tries);
       }
-      if(tries == 0){
+       //if tries equal 0 then game is over
+       if(tries == 0){
         wordLabel.setText("You Lose! To try again press Restart");
       }
     }
     if(command.equals("Restart")){
-      
+      Random RANDOM = new Random();
+      //create new word
+      randIndex = RANDOM.nextInt(4);
+      //store the word in array to see users progress 
+      randWord = words[randIndex];
+      letter = randWord.toCharArray();
+      //change the word output
+      enteredLetters = new char[randWord.length()];
+      for(int i = 0; i < randWord.length(); i++){
+       enteredLetters[i] = '_';
+      //make font bigger
+      biggerText = new Font("arial" , Font.PLAIN, 19);
+      wordLabel.setFont(biggerText);
+      }
+      //store the word in array to see users progress 
+      randWord = words[randIndex];
+      letter = randWord.toCharArray();
       //reset everything to default
       letterInput.setText("");
       wordLabel.setText("");
-      triesRemainingLabel.setText("");
+      triesRemainingLabel.setText("" );
+      tries = 7;
     }
 }
+
     
 
    
